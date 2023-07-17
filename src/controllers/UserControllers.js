@@ -1,4 +1,4 @@
-const {loadContacts} = require('../utils/index')
+const {loadContacts,validContacts} = require('../utils/index')
 
 
 
@@ -28,8 +28,27 @@ const TambahKontak = (req,res) => {
     }
 }
 
+//details
+const Details = async (req,res) => {
+    const contact = await validContacts(req.params.Nama)
+    if(contact){
+        try{
+            res.render('details',{
+                title: 'halaman/details',
+                layout: 'main-layouts/main-layouts',
+                contact
+            })
+        }catch{
+            res.status(404).send('404 not Found')
+        }
+    }else{
+        res.status(401).send('401 not Found')
+    }
+   
+}
 
 
 
 
-module.exports = {HomeContacts,TambahKontak}
+
+module.exports = {HomeContacts,TambahKontak,Details}

@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const {HomeContacts,TambahKontak} = require('../controllers/UserControllers')
+const {HomeContacts,TambahKontak,Details} = require('../controllers/UserControllers')
 const {addcontact,loadContacts,validContacts} = require('../utils/index')
 
 //validator
@@ -21,6 +21,7 @@ const Upload = multer({dest: 'uploads/'})
 
 app.get('/',HomeContacts)
 app.get('/tambahkontak',TambahKontak)
+app.get('/detail/:Nama',Details)
 
 //app post
 app.post('/tambahkontak',[

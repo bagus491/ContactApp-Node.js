@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="belum upload Foto">
+        <div class="card-body">
+          <h5 class="card-title"><%= contact.Nama %></h5>
+          <h5 class="card-title"><%= contact.noHp %></h5>
+          <h5 class="card-title"><%= contact.Email %></h5>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Upload Foto</button>
+          <br><br>
+          <a href="#" class="btn btn-danger">Hapus Contact</a>
+          <br><br>
+          <a href="#" class="btn btn-success">Update Contact</a>
+        </div>
+      </div>
+</div>
+
+
+<%- include('./modal') %>

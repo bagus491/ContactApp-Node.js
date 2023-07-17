@@ -34,7 +34,7 @@ const addcontact = (value) => {
 //getcontacts
 const validContacts = (Nama) => {
     const contacts = loadContacts()
-    const contact = contacts.find((e) => e.Nama === Nama)
+    const contact = contacts.find((e) => e.Nama == Nama)
     return contact
 }
 
