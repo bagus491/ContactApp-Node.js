@@ -10,12 +10,23 @@
             layout: 'main-layouts/main-layouts',
            })
     }catch{
-        res.status(400)
+        res.status(404).send('404 not found')
     }
-   
+}
+
+//tambahkontak
+const TambahKontak = (req,res) => {
+    try{
+        res.render('addcontact', {
+            title: 'halaman/addcontact',
+            layout: 'main-layouts/main-layouts',
+        })
+    }catch{
+        res.status(404).send('404 not Found')
+    }
 }
 
 
 
 
-module.exports = {HomeContacts}
+module.exports = {HomeContacts,TambahKontak}
