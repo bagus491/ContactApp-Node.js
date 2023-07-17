@@ -14,7 +14,7 @@
     }
 }
 
-//tambahkontak
+//tambahkontakViews
 const TambahKontak = (req,res) => {
     try{
         res.render('addcontact', {
@@ -25,7 +25,6 @@ const TambahKontak = (req,res) => {
         res.status(404).send('404 not Found')
     }
 }
-
 
 
 
