@@ -5,10 +5,14 @@
 //homeContacts
  const HomeContacts = (req,res) => {
     try{
-        res.send('kocak')
+        res.render('Home',{
+            title: 'halaman/home',
+            layout: 'main-layouts/main-layouts',
+           })
     }catch{
         res.status(400)
     }
+   
 }
 
 
