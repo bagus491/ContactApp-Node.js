@@ -11,8 +11,11 @@
             <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Upload Foto</button>    
             <br><br> 
           <% } %>
-          <a href="#" class="btn btn-danger">Hapus Contact</a>
-          <br><br>
+          <form method="post" action="/detail?_method=DELETE">
+            <input type="hidden" name="Nama" value="<%= contact.Nama %>">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('yakin?')">Hapus Contact</button>
+          </form>
+          <br>
           <a href="#" class="btn btn-success">Update Contact</a>
         </div>
       </div>
@@ -28,7 +31,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form method="post" action="/upload" enctype="multipart/form-data">
+            <form method="post" action="/upload">
                 <input type="hidden" name="Nama" value="<%= contact.Nama %>">
                 <div class="mb-3">
                   <label for="Avatar" class="form-label">Avatar</label>

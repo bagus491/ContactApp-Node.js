@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const {HomeContacts,TambahKontak,Details} = require('../controllers/UserControllers')
-const {addcontact,loadContacts,validContacts,addProfile} = require('../utils/index')
+const {addcontact,loadContacts,validContacts,addProfile,DeleteContact} = require('../utils/index')
 
 //validator
 const {body,validationResult} = require('express-validator')
@@ -20,6 +20,10 @@ const Upload = multer({dest: 'uploads/'})
 
 //midleware
 app.use('/uploads',express.static('uploads'))
+
+//midleware
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 
 
 app.get('/',HomeContacts)
@@ -67,7 +71,15 @@ app.post('/upload', Upload.single('Avatar'), (req,res) => {
    
 })
 
-
+//delete
+app.delete('/detail', (req,res) => {
+    try{
+        DeleteContact(req.body)
+        res.redirect('/')
+    }catch{
+        res.status(404).send('404 NOT FOUND')
+    }
+})
 
 
 

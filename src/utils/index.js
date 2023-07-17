@@ -67,4 +67,19 @@ const getProfile = (Nama) => {
     return profile
 }
 
-module.exports = {addcontact,loadContacts,validContacts,addProfile,getProfile}
+
+//delete contancts dan profile
+const DeleteContact = (Nama) => {
+    const contacts = loadContacts()
+    const Profiles = loadProfile()
+
+    const contact = contacts.filter((e) => e.Nama !== Nama)
+    const profile = Profiles.filter((e) => e.Nama !== Nama)
+
+    
+    saveContacts(contact)
+    saveProfile(profile)
+}
+
+
+module.exports = {addcontact,loadContacts,validContacts,addProfile,getProfile,DeleteContact}
