@@ -1,12 +1,16 @@
 <div class="container">
     <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="belum upload Foto">
+        <% if (typeof profile !== 'undefined') { %>
+            <img src="../../<%= profile.Avatar %>" class="card-img-top" alt="belum upload Foto">
+        <% } %>
         <div class="card-body">
           <h5 class="card-title"><%= contact.Nama %></h5>
           <h5 class="card-title"><%= contact.noHp %></h5>
           <h5 class="card-title"><%= contact.Email %></h5>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Upload Foto</button>
-          <br><br>
+          <% if (typeof profile == 'undefined') { %>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Upload Foto</button>    
+            <br><br> 
+          <% } %>
           <a href="#" class="btn btn-danger">Hapus Contact</a>
           <br><br>
           <a href="#" class="btn btn-success">Update Contact</a>
@@ -15,4 +19,27 @@
 </div>
 
 
-<%- include('./modal') %>
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Uplaod Foto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="/upload" enctype="multipart/form-data">
+                <input type="hidden" name="Nama" value="<%= contact.Nama %>">
+                <div class="mb-3">
+                  <label for="Avatar" class="form-label">Avatar</label>
+                  <input type="file" class="form-control" id="Avatar" name="Avatar" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const {HomeContacts,TambahKontak,Details} = require('../controllers/UserControllers')
-const {addcontact,loadContacts,validContacts} = require('../utils/index')
+const {addcontact,loadContacts,validContacts,addProfile} = require('../utils/index')
 
 //validator
 const {body,validationResult} = require('express-validator')
@@ -17,6 +17,9 @@ app.use(mainlayouts)
 //middleware
 const multer = require('multer')
 const Upload = multer({dest: 'uploads/'})
+
+//midleware
+app.use('/uploads',express.static('uploads'))
 
 
 app.get('/',HomeContacts)
@@ -52,7 +55,16 @@ app.post('/tambahkontak',[
 
 app.post('/upload', Upload.single('Avatar'), (req,res) => {
     const imageUrl = req.file.path
-    res.send(imageUrl)
+    const {Nama} = req.body
+    
+    try{
+        // kenapa dikirim data object? karena ini file yang berbeda  dan Nama di ambil dengan method Destruction
+        addProfile({Nama:`${Nama}`,Avatar:`${imageUrl}`})
+        res.redirect(`/detail/${Nama}`)
+    }catch{
+        res.redirect('/')
+    }
+   
 })
 
 
