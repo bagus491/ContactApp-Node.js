@@ -5,7 +5,7 @@
 //homeContacts
  const HomeContacts = (req,res) => {
     try{
-        res.send('kocak bet')
+        res.send('kocak')
     }catch{
         res.status(400)
     }
