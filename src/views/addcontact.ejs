@@ -2,8 +2,19 @@
     <br>
     <div class="card" style="width: 18rem;">
         <div class="card-body">
+            <% if (typeof error !== 'undefined') { %>
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <% error.forEach(error => { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                        <% }) %>
+                    </ul>
+                  </div>
+            <% } %>
           <h5 class="card-title">Card title</h5>
-          <form method="post" action="/tambahkontak" enctype="multipart/form-data">
+          <form method="post" action="/tambahkontak">
             <div class="mb-3">
               <label for="Nama" class="form-label">Nama</label>
               <input type="text" class="form-control" id="Nama" name="Nama" required>
@@ -16,12 +27,10 @@
                 <label for="Email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="Email" name="Email" required>
               </div>
-              <div class="mb-3">
-                <label for="Avatar" class="form-label">Avatar</label>
-                <input type="file" class="form-control" id="Avatar" name="Avatar" required>
-              </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+          <br>
+          <a href="/">&laquo; Kembali ke Home</a>
         </div>
       </div>
 </div>

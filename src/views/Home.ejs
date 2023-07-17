@@ -15,7 +15,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                
+                  <% if (contact.length < 1) { %>
+                    <tr>
+                      <td colspan="4">
+                        <div class="alert alert-warning" role="alert">
+                          data masih kosong
+                        </div>
+                      </td>
+                    </tr>
+                  <% } %>
+                <% contact.forEach((contact,i) => { i++%>
+                 <tr>
+                  <td><%= i++ %></td>
+                  <td><%= contact.Nama %></td>
+                  <td><%= contact.noHp %></td>
+                  <td><a href="/detailscontact" class="btn btn-primary badge rounded-flip">Details</a></td>
+                 </tr>
+                <% }) %>
                 </tbody>
               </table>
         </div>

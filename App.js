@@ -3,6 +3,9 @@ const app = express()
 const port = 3000
 const UsersRouter = require('./src/router/UserRouter')
 
+const bodyparser = require('body-parser')
+app.use(bodyparser.urlencoded({extended: false}))
+app.use(bodyparser.json())
 
 //ini kegunaannya untuk menggabungkan atau setting src/router yang bisa di pakai
 const path = require('path')

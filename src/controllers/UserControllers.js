@@ -1,13 +1,15 @@
+const {loadContacts} = require('../utils/index')
 
-require('../utils/index')
 
 
 //homeContacts
  const HomeContacts = (req,res) => {
+    const contact = loadContacts()
     try{
         res.render('Home',{
             title: 'halaman/home',
             layout: 'main-layouts/main-layouts',
+            contact
            })
     }catch{
         res.status(404).send('404 not found')
@@ -25,6 +27,8 @@ const TambahKontak = (req,res) => {
         res.status(404).send('404 not Found')
     }
 }
+
+
 
 
 
