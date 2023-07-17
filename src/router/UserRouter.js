@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const {HomeContacts,TambahKontak,Details} = require('../controllers/UserControllers')
-const {addcontact,loadContacts,validContacts,addProfile,DeleteContact} = require('../utils/index')
+const {addcontact,loadContacts,validContacts,addProfile,DeleteContact,UpdateContact} = require('../utils/index')
 
 //validator
 const {body,validationResult} = require('express-validator')
@@ -78,6 +78,28 @@ app.delete('/detail', (req,res) => {
         res.redirect('/')
     }catch{
         res.status(404).send('404 NOT FOUND')
+    }
+})
+
+//update
+app.put('/detail',[
+    body('Nama').custom((value) => {
+        const duplikat = validContacts(value)
+        if(duplikat){
+            throw new Error('Nama telah tersedia')
+        }else{
+            return true
+        }
+    }),
+    body('Email').isEmail().withMessage('Email tidak valid'),
+    body('noHp').isMobilePhone('id-ID').withMessage('noHp tidak valid')
+],(req,res) => {
+    const error = validationResult(req)
+    if(!error.isEmpty()){
+        res.send({error: error.array()})
+    }else{
+        UpdateContact(req.body)
+        res.redirect('/')
     }
 })
 

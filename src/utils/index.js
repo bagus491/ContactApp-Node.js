@@ -81,5 +81,23 @@ const DeleteContact = (Nama) => {
     saveProfile(profile)
 }
 
+//update
+const UpdateContact = (value) => {
+    const contacts = loadContacts()
+    const Profiles = loadProfile()
 
-module.exports = {addcontact,loadContacts,validContacts,addProfile,getProfile,DeleteContact}
+    const contact = contacts.filter((e) => e.Nama !== value.oldNama)
+    const profile = Profiles.find((e) => e.Nama == value.oldNama)
+
+    delete value.oldNama
+    contact.push(value)
+    saveContacts(contact)
+
+    profile["Nama"] = value.Nama
+    
+    const newProfile = Profiles.filter((e) => e.Nama !== profile.Nama)
+    newProfile.push(profile)
+    saveProfile(newProfile)
+ }
+
+module.exports = {addcontact,loadContacts,validContacts,addProfile,getProfile,DeleteContact,UpdateContact}

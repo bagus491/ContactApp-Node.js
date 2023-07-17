@@ -16,7 +16,7 @@
             <button type="submit" class="btn btn-danger" onclick="return confirm('yakin?')">Hapus Contact</button>
           </form>
           <br>
-          <a href="#" class="btn btn-success">Update Contact</a>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal-one" class="btn btn-success">Update Contact</button>    
         </div>
       </div>
 </div>
@@ -46,3 +46,36 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+ <div class="modal fade" id="exampleModal-one" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Uplaod Foto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/detail?_method=PUT">
+          <input type="hidden" name="oldNama" value="<%= contact.Nama %>">
+          <div class="mb-3">
+            <label for="Nama" class="form-label">Nama</label>
+            <input type="text" class="form-control" id="Nama" name="Nama" value="<%= contact.Nama %>" required>
+          </div>
+          <div class="mb-3">
+              <label for="noHp" class="form-label">noHp</label>
+              <input type="text" class="form-control" id="noHp" name="noHp" value="<%= contact.noHp %>" required>
+            </div>
+            <div class="mb-3">
+              <label for="Email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="Email" name="Email" value="<%= contact.Email %>"  required>
+            </div>
+          <button type="submit" class="btn btn-success">Update Contact</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
