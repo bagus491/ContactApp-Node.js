@@ -50,6 +50,11 @@ app.post('/tambahkontak',[
  
 })
 
+app.post('/upload', Upload.single('Avatar'), (req,res) => {
+    const imageUrl = req.file.path
+    res.send(imageUrl)
+})
+
 
 
 
