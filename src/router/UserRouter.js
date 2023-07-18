@@ -77,7 +77,7 @@ app.post('/upload', Upload.single('Avatar'), (req,res) => {
 //delete
 app.delete('/detail', (req,res) => {
     try{
-        DeleteContact(req.body)
+        DeleteContact(req.body.Nama)
         res.redirect('/')
     }catch{
         res.status(404).send('404 NOT FOUND')
