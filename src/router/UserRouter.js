@@ -25,6 +25,9 @@ app.use('/uploads',express.static('uploads'))
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
+//middleware
+app.use(express.static(path.join(__dirname, '../public')))
+
 
 app.get('/',HomeContacts)
 app.get('/tambahkontak',TambahKontak)
