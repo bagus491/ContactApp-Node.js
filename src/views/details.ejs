@@ -1,27 +1,40 @@
-<div class="container d-flex justify-content-center" style="min-height: 75vh; align-items: flex-end;">
+<div class="container d-flex justify-content-center" style="min-height: 85vh; align-items: flex-end;">
   
-    <div class="card" style="width: 18rem;">
-        <% if (typeof profile !== 'undefined') { %>
-            <img src="../../<%= profile.Avatar %>" class="card-img-top" alt="belum upload Foto">
-        <% } %>
-        <div class="card-body">
-          <h5 class="card-title"><%= contact.Nama %></h5>
-          <h5 class="card-title"><%= contact.noHp %></h5>
-          <h5 class="card-title"><%= contact.Email %></h5>
-          <% if (typeof profile == 'undefined') { %>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Upload Foto</button>    
-            <br><br> 
+    <div class="card" style="width: 18rem; background: #D2E0FB;">
+    
+        <div class="card-body" style="display: flex; flex-wrap: wrap;">
+
+          <div class="card-foto mb-4" style="flex: 50%; text-align: center;">  
+            <% if (typeof profile !== 'undefined') { %>
+              <img src="../../<%= profile.Avatar %>" class="card-img-top" alt="belum upload Foto">
+          <% } else { %>
+          <img src="http://localhost:3000/img/profile-default.jpg" alt="foto" style="width: 200px; border-radius: 100px;"> 
           <% } %>
+          </div>
 
-          <form method="post" action="/contact?_method=DELETE">
-            <input type="hidden" name="Nama" value="<%= contact.Nama %>">
-            <button type="submit" class="btn btn-danger" onclick="return confirm('yakin?')">Hapus Contact</button>
-          </form>
+          <div class="card-detail" style="flex: 50%;">
+            <h5 class="card-title"><%= contact.Nama %></h5>
+            <h5 class="card-title"><%= contact.noHp %></h5>
+            <h5 class="card-title"><%= contact.Email %></h5>
+            <% if (typeof profile == 'undefined') { %>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Upload Foto</button>    
+              <br><br> 
+            <% } %>
+  
+            <form method="post" action="/contact?_method=DELETE">
+              <input type="hidden" name="Nama" value="<%= contact.Nama %>">
+              <button type="submit" class="btn btn-danger" onclick="return confirm('yakin?')">Hapus Contact</button>
+            </form>
+  
+            <br>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal-one" class="btn btn-success">Update Contact</button>    
+          </div>
 
-          <br>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal-one" class="btn btn-success">Update Contact</button>    
+         
         </div>
+
       </div>
+
 </div>
 
 
@@ -34,12 +47,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <img class="img-perview" width="200">
 
             <form method="post" action="/upload" enctype="multipart/form-data">
                 <input type="hidden" name="Nama" value="<%= contact.Nama %>">
                 <div class="mb-3">
                   <label for="Avatar" class="form-label">Avatar</label>
-                  <input type="file" class="form-control" id="Avatar" name="Avatar" required>
+                  <input type="file" class="form-control" id="Avatar" name="Avatar" onchange="perviewImage()" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
@@ -57,7 +71,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Uplaod Foto</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Upload Foto</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -86,3 +100,20 @@
     </div>
   </div>
 </div>
+
+<script>
+   function perviewImage(){
+              const image = document.querySelector('#Avatar')
+              const pathImage = document.querySelector('.img-perview')
+
+              pathImage.style.display = "block";
+
+              const oFReader = new FileReader();
+              oFReader.readAsDataURL(image.files[0]);
+
+              oFReader.onload = function(oFREvent){
+                pathImage.src = oFREvent.target.result;
+              }
+              
+            }
+</script>
