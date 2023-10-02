@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const {HomeView,AddView,DetailView} = require('../controllers/UserControllers')
+const {HomeView,AddView,DetailView,searchKontak} = require('../controllers/UserControllers')
 
 //contactController
 const {addKontak,deleteKontak,updateKontak} = require('../controllers/ContactController')
@@ -46,6 +46,9 @@ app.post('/contact',validateData,addKontak)
 app.delete('/contact', deleteKontak)
 //update
 app.put('/contact',validateData,updateKontak)
+
+//search
+app.get('/search',searchKontak)
 
 //viewHome
 app.get('/',HomeView)

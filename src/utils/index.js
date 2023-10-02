@@ -106,4 +106,14 @@ const UpdateContact = (value) => {
 
  }
 
-module.exports = {addcontact,loadContacts,validContacts,addProfile,getProfile,DeleteContact,UpdateContact}
+ //search
+ const search = (keyword) => {
+    const contacts = loadContacts()
+
+
+    const getContacts = contacts.filter((e) => e.Nama.toLowerCase().includes(keyword.toLowerCase()) || e.noHp.includes(keyword) || e.Email.toLowerCase().includes(keyword.toLowerCase()) )
+
+    return getContacts
+ }
+
+module.exports = {addcontact,loadContacts,validContacts,addProfile,getProfile,DeleteContact,UpdateContact,search}

@@ -1,4 +1,4 @@
-const {addcontact,DeleteContact,UpdateContact} = require('../utils/index')
+const {addcontact,DeleteContact,UpdateContact,} = require('../utils/index')
 
 //validate
 const {validationResult} = require('express-validator')
@@ -48,5 +48,6 @@ const updateKontak = (req,res) => {
         res.status(500).send({msg : 'Internal Server Error'})
     }
 }
+
 
 module.exports = {addKontak,deleteKontak,updateKontak}

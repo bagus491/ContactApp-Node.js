@@ -3,7 +3,12 @@
         <div class="col-md-8">
           <h1>myContacts</h1>
           <br>
-          <a href="/contact" class="btn btn-success">Tambah Kontak</a>
+          <a href="/contact" class="btn btn-success">Add contact</a>
+            <br><br>
+            <form class="d-flex" role="search" action="/search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_query">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
             <br><br>
             <% if (msg.length != 0) { %>
               <div class="alert alert-success" role="alert">
@@ -25,7 +30,7 @@
                     <tr>
                       <td colspan="4">
                         <div class="alert alert-warning" role="alert">
-                          data masih kosong
+                          contact Not Found
                         </div>
                       </td>
                     </tr>
@@ -42,4 +47,17 @@
               </table>
         </div>
     </div>
+
+    <% if (typeof jmlhhalaman != 'undefined') { %>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+        
+          <% for( let i = 1; i <= jmlhhalaman ; i++) { %>
+            <li class="page-item"><a class="page-link" href="/?page=<%= i %>"><%= i %></a></li>
+          <% } %>
+    
+        </ul>
+      </nav>
+
+    <% } %>
 </div>

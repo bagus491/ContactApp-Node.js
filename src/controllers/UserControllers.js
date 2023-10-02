@@ -1,16 +1,30 @@
-const {loadContacts,validContacts,getProfile} = require('../utils/index')
+const {loadContacts,validContacts,getProfile,search} = require('../utils/index')
 
 
 
 //homeContacts
  const HomeView = (req,res) => {
-    const contact = loadContacts()
-    try{
+    let contact = loadContacts()
+        
+    const pages = req.query.page
+    //pagination
+    const Jmlhperhalaman = 4;
+    const panjangContact = contact.length;
+    let jmlhhalaman = Math.ceil(panjangContact / Jmlhperhalaman);
+    let  awalData = pages ?  pages : 1
+    
+        //pembagian
+        let defaultPage = (awalData - 1) * Jmlhperhalaman
+        let lastpage = defaultPage + Jmlhperhalaman
+        contact = contact.slice(defaultPage,lastpage)
+    
+     try{
         res.render('Home',{
             title: 'halaman/home',
             layout: 'main-layouts/main-layouts',
             contact,
-            msg: req.flash('msg')
+            msg: req.flash('msg'),
+            jmlhhalaman
            })
     }catch(error){
         res.status(404).send('404 not found')
@@ -51,8 +65,31 @@ const DetailView = async (req,res) => {
     }
 }
 
+//search
+const searchKontak = (req,res) => {
+    try{
+        const keyword = req.query.search_query
+        const contact = search(keyword)
+        
+        if(keyword === '')
+        {
+            res.redirect('/')
+        }
+
+        res.render('Home',{
+            title: 'halaman/home',
+            layout: 'main-layouts/main-layouts',
+            contact,
+            msg: req.flash('msg'),
+           
+           })
+    }catch(error){
+        res.status(500).send({msg : 'Internal Server Error'})
+    }
+}
 
 
 
 
-module.exports = {HomeView,AddView,DetailView}
+
+module.exports = {HomeView,AddView,DetailView,searchKontak}
