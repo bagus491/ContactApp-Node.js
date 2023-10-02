@@ -3,8 +3,14 @@
         <div class="col-md-8">
           <h1>myContacts</h1>
           <br>
-          <a href="/tambahkontak" class="btn btn-success">Tambah Kontak</a>
-            <br>
+          <a href="/contact" class="btn btn-success">Tambah Kontak</a>
+            <br><br>
+            <% if (msg.length != 0) { %>
+              <div class="alert alert-success" role="alert">
+              <%= msg %>
+              </div>
+            <% } %>
+
             <table class="table">
                 <thead>
                   <tr>

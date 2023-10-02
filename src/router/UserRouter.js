@@ -1,10 +1,18 @@
 const express = require('express')
 const app = express()
-const {HomeContacts,TambahKontak,Details} = require('../controllers/UserControllers')
-const {addcontact,loadContacts,validContacts,addProfile,DeleteContact,UpdateContact} = require('../utils/index')
+const {HomeView,AddView,DetailView} = require('../controllers/UserControllers')
 
-//validator
-const {body,validationResult} = require('express-validator')
+//contactController
+const {addKontak,deleteKontak,updateKontak} = require('../controllers/ContactController')
+
+//profile
+const {uploadProfile} = require('../controllers/ProfileController')
+
+
+//validate
+const {validateData} = require('../utils/validate')
+
+
 
 const path = require('path')
 app.set('views',path.join(__dirname, '../views'))
@@ -29,82 +37,26 @@ app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, '../public')))
 
 
-app.get('/',HomeContacts)
-app.get('/tambahkontak',TambahKontak)
-app.get('/detail/:Nama',Details)
 
-//app post
-app.post('/tambahkontak',[
-    body('Nama').custom((Value) =>{
-        const duplikat = validContacts(Value)
-        if(duplikat){
-            throw new Error('nama sudah tersedia')
-        }else{
-            return true
-        }
-    }),
-    body('Email').isEmail().withMessage('Email tidak valid'),
-    body('noHp').isMobilePhone('id-ID').withMessage('noHp tidak valid')
-],(req,res) => {
-    const error = validationResult(req)
-    if(!error.isEmpty()){
-        res.render('addcontact', {
-            title: 'halaman/tambahkontak',
-            layout: 'main-layouts/main-layouts',
-            error: error.array()
-        })
-    }else{
-        addcontact(req.body)
-        res.redirect('/')
-    }
- 
-})
-
-app.post('/upload', Upload.single('Avatar'), (req,res) => {
-    const imageUrl = req.file.path
-    const {Nama} = req.body
-    
-    try{
-        // kenapa dikirim data object? karena ini file yang berbeda  dan Nama di ambil dengan method Destruction
-        addProfile({Nama:`${Nama}`,Avatar:`${imageUrl}`})
-        res.redirect(`/detail/${Nama}`)
-    }catch{
-        res.redirect('/')
-    }
-   
-})
-
+// tambahkontak
+app.get('/contact',AddView)
+//app post tambahkontak
+app.post('/contact',validateData,addKontak)
 //delete
-app.delete('/detail', (req,res) => {
-    try{
-        DeleteContact(req.body.Nama)
-        res.redirect('/')
-    }catch{
-        res.status(404).send('404 NOT FOUND')
-    }
-})
-
+app.delete('/contact', deleteKontak)
 //update
-app.put('/detail',[
-    body('Nama').custom((value) => {
-        const duplikat = validContacts(value)
-        if(duplikat){
-            throw new Error('Nama telah tersedia')
-        }else{
-            return true
-        }
-    }),
-    body('Email').isEmail().withMessage('Email tidak valid'),
-    body('noHp').isMobilePhone('id-ID').withMessage('noHp tidak valid')
-],(req,res) => {
-    const error = validationResult(req)
-    if(!error.isEmpty()){
-        res.send({error: error.array()})
-    }else{
-        UpdateContact(req.body)
-        res.redirect('/')
-    }
-})
+app.put('/contact',validateData,updateKontak)
+
+//viewHome
+app.get('/',HomeView)
+//viewDetail
+app.get('/detail/:Nama',DetailView)
+
+
+//app post upload
+app.post('/upload', Upload.single('Avatar'),uploadProfile)
+
+
 
 
 

@@ -1,6 +1,6 @@
-<div class="container">
-    <br>
-    <div class="card" style="width: 18rem;">
+<div class="container d-flex justify-content-center" style="min-height: 75vh; align-items: flex-end;">
+
+    <div class="card" style="width: 18rem; background: #6499E9;">
         <div class="card-body">
             <% if (typeof error !== 'undefined') { %>
                 <div class="alert alert-danger" role="alert">
@@ -14,7 +14,8 @@
                   </div>
             <% } %>
           <h5 class="card-title">Card title</h5>
-          <form method="post" action="/tambahkontak">
+
+          <form method="post" action="/contact">
             <div class="mb-3">
               <label for="Nama" class="form-label">Nama</label>
               <input type="text" class="form-control" id="Nama" name="Nama" required>
@@ -29,8 +30,9 @@
               </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+
           <br>
-          <a href="/">&laquo; Kembali ke Home</a>
+          <a href="/" style="color: black;">&laquo; Kembali ke Home</a>
         </div>
       </div>
 </div>
